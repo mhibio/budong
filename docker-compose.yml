@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: budong_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: budong
+      MYSQL_USER: budonguser
+      MYSQL_PASSWORD: budongpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - budong_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  api:
+    build: .
+    container_name: budong_api
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=mysql+pymysql://budonguser:budongpassword@db:3306/budong
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+      - MYSQL_USER=budonguser
+      - MYSQL_PASSWORD=budongpassword
+      - MYSQL_DATABASE=budong
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    networks:
+      - budong_network
+
+volumes:
+  mysql_data:
+
+networks:
+  budong_network:
+    driver: bridge
