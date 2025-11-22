@@ -65,17 +65,17 @@ def insert_dummy_data():
             {
                 'bjd_code': '1168010100',
                 'region_name_full': '서울특별시 강남구 역삼동',
-                'region_polygon': func.ST_GeomFromText('POLYGON((127.028 37.500, 127.032 37.500, 127.032 37.504, 127.028 37.504, 127.028 37.500))')
+                'region_polygon': 'POLYGON((127.028 37.500, 127.032 37.500, 127.032 37.504, 127.028 37.504, 127.028 37.500))'
             },
             {
                 'bjd_code': '1168010200',
                 'region_name_full': '서울특별시 강남구 개포동',
-                'region_polygon': func.ST_GeomFromText('POLYGON((127.050 37.480, 127.055 37.480, 127.055 37.485, 127.050 37.485, 127.050 37.480))')
+                'region_polygon': 'POLYGON((127.050 37.480, 127.055 37.480, 127.055 37.485, 127.050 37.485, 127.050 37.480))'
             },
             {
                 'bjd_code': '1168010300',
                 'region_name_full': '서울특별시 강남구 삼성동',
-                'region_polygon': func.ST_GeomFromText('POLYGON((127.045 37.510, 127.050 37.510, 127.050 37.515, 127.045 37.515, 127.045 37.510))')
+                'region_polygon': 'POLYGON((127.045 37.510, 127.050 37.510, 127.050 37.515, 127.045 37.515, 127.045 37.510))'
             }
         ]
         
@@ -85,12 +85,12 @@ def insert_dummy_data():
                 # SQL로 직접 삽입 (Spatial 타입 때문에)
                 db.execute(text(
                     f"INSERT INTO t_region (bjd_code, region_name_full, region_polygon) "
-                    f"VALUES (:bjd_code, :region_name_full, ST_GeomFromText(:polygon)) "
+                    f"VALUES (:bjd_code, :region_name_full, :polygon) "
                     f"ON DUPLICATE KEY UPDATE region_name_full = VALUES(region_name_full)"
                 ), {
                     'bjd_code': region_data['bjd_code'],
                     'region_name_full': region_data['region_name_full'],
-                    'polygon': region_data['region_polygon'].value
+                    'polygon': region_data['region_polygon']
                 })
         db.commit()
         print("✅ 지역 데이터 삽입 완료")
@@ -127,7 +127,7 @@ def insert_dummy_data():
             if not existing:
                 db.execute(text(
                     "INSERT INTO t_building (bjd_code, address, building_name, building_type, build_year, total_units, location) "
-                    "VALUES (:bjd_code, :address, :name, :type, :year, :units, ST_GeomFromText(:point))"
+                    "VALUES (:bjd_code, :address, :name, :type, :year, :units, :point)"
                 ), {
                     'bjd_code': bjd_code,
                     'address': address,
