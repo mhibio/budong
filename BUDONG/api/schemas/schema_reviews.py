@@ -23,3 +23,13 @@ class ReviewItem(BaseModel):
 class ReviewListResponse(BaseModel):
     reviews: List[ReviewItem]
     total_count: int
+class ReviewCreate(BaseModel):
+    building_id: int
+    rating: int
+    content: str
+
+class ReviewResponse(BaseModel):
+    success: bool
+    review_id: int
+    message: str
+
