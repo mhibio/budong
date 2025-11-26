@@ -7,7 +7,7 @@ from BUDONG.api.core.database import get_db
 from BUDONG.api.schemas.schema_reviews import ReviewCreate, ReviewResponse
 from BUDONG.api.models.models import TBuildingReview, TBuilding
 
-router = APIRouter(prefix="/reviews", tags=["reviews"])
+router = APIRouter()
 
 @router.post("/create", response_model=ReviewResponse)
 def create_review(review: ReviewCreate, db: Session = Depends(get_db)):

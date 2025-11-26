@@ -7,9 +7,9 @@ from BUDONG.api.core.database import get_db
 from BUDONG.api.schemas.schema_reviews import ReviewFetchRequest, ReviewListResponse
 from BUDONG.api.models.models import TBuildingReview
 
-router = APIRouter(prefix="/reviews", tags=["reviews"])  # ← THIS MUST EXIST
+router = APIRouter()  # ← THIS MUST EXIST
 
-@router.post("/by-building", response_model=ReviewListResponse)
+@router.post("/reviews", response_model=ReviewListResponse)
 def get_reviews_by_building(request: ReviewFetchRequest, db: Session = Depends(get_db)):
     # 1) Fetch reviews
     reviews = db.query(TBuildingReview).filter(
