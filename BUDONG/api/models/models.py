@@ -21,7 +21,7 @@ class Base(DeclarativeBase):
 # 1. 사용자 및 활동 테이블
 # =====================================================
 
-class User(Base):
+class TUser(Base):
     __tablename__ = "t_user"
     __table_args__ = {"comment": "사용자 계정 정보"}
 
@@ -61,7 +61,7 @@ class User(Base):
     )
 
 
-class BuildingReview(Base):
+class TBuildingReview(Base):
     __tablename__ = "t_building_review"
     __table_args__ = (
         Index("idx_user_id", "user_id"),
@@ -104,7 +104,7 @@ class BuildingReview(Base):
     building: Mapped["Building"] = relationship(back_populates="reviews")
 
 
-class UserSavedBuilding(Base):
+class TUserSavedBuilding(Base):
     __tablename__ = "t_user_saved_building"
     __table_args__ = (
         UniqueConstraint("user_id", "building_id", name="uk_user_building"),
@@ -149,7 +149,7 @@ class UserSavedBuilding(Base):
 # 2. 지역 및 건물 테이블
 # =====================================================
 
-class BjdTable(Base):
+class TBjdTable(Base):
     __tablename__ = "t_bjd_table"
 
     bjd_code: Mapped[int] = mapped_column(
@@ -165,7 +165,7 @@ class BjdTable(Base):
     jcg_mappings: Mapped[list["JcgBjdTable"]] = relationship(back_populates="bjd")
 
 
-class Building(Base):
+class TBuilding(Base):
     __tablename__ = "t_building"
     __table_args__ = (
         Index("idx_bjd_code", "bjd_code"),
@@ -211,7 +211,7 @@ class Building(Base):
 # 3. 거래 정보 테이블
 # =====================================================
 
-class RealTransactionPrice(Base):
+class TRealTransactionPrice(Base):
     __tablename__ = "t_real_transaction_price"
     __table_args__ = (
         Index("idx_building_id", "building_id"),
@@ -242,7 +242,7 @@ class RealTransactionPrice(Base):
 # 4. 안전 및 치안 정보
 # =====================================================
 
-class CrimeCCTV(Base):
+class TCrimeCCTV(Base):
     __tablename__ = "t_crime_CCTV"
 
     jcg_name: Mapped[str] = mapped_column(
@@ -256,7 +256,7 @@ class CrimeCCTV(Base):
     CCTV_security_rating: Mapped[Optional[int]] = mapped_column(BigInteger, nullable=True)
 
 
-class PoliceStationInfo(Base):
+class TPoliceStationInfo(Base):
     __tablename__ = "t_police_station_info"
 
     polic_station_name: Mapped[str] = mapped_column(
@@ -272,7 +272,7 @@ class PoliceStationInfo(Base):
 # 5. 교통 및 시설 정보
 # =====================================================
 
-class Station(Base):
+class TStation(Base):
     __tablename__ = "t_station"
 
     station_id: Mapped[int] = mapped_column(
@@ -286,7 +286,7 @@ class Station(Base):
     lon: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
 
 
-class PublicTransportByAdminDong(Base):
+class TPublicTransportByAdminDong(Base):
     __tablename__ = "t_public_transport_by_admin_dong"
 
     hjd_id: Mapped[int] = mapped_column(
@@ -298,7 +298,7 @@ class PublicTransportByAdminDong(Base):
     complexity_rating: Mapped[Optional[int]] = mapped_column(BigInteger, nullable=True)
 
 
-class School(Base):
+class TSchool(Base):
     __tablename__ = "t_school"
     __table_args__ = (
         Index("idx_school_name", "school_name"),
@@ -320,7 +320,7 @@ class School(Base):
     lat: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
 
 
-class Park(Base):
+class TPark(Base):
     __tablename__ = "t_park"
 
     park_name: Mapped[str] = mapped_column(
@@ -341,7 +341,7 @@ class Park(Base):
 # 6. 환경 정보
 # =====================================================
 
-class Noise(Base):
+class TNoise(Base):
     __tablename__ = "t_noise"
 
     noise_max: Mapped[Optional[int]] = mapped_column(BigInteger, nullable=True)
@@ -352,7 +352,7 @@ class Noise(Base):
     lon: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
 
 
-class JcgBjdTable(Base):
+class TJcgBjdTable(Base):
     __tablename__ = "t_jcg_bjd_table"
 
     region_name_full: Mapped[str] = mapped_column(
