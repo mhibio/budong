@@ -4,14 +4,14 @@ from .models import (
     TBuildingReview,
     TUserSavedBuilding,
     TBuilding,
-    TRealEstateTransaction,
-    TInfrastructure,
+    TRealTransactionPrice,
+    TSchool,
     TSchoolDetail,
     TParkDetail,
     TRegion,
     TRegionStats,
-    TEnvironmentStation,
-    TEnvironmentData,
+    TStation,
+    TNoise,
 )
 
 

@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from BUDONG.api.core.database import get_db
-from BUDONG.api.models.models import TBuilding, TInfrastructure
+from BUDONG.api.models.models import TBuilding, TSchool
 from BUDONG.api.schemas.schema_search import (
     SearchPointRequest,
     SearchPointResponse,
     SearchPointBuilding,
-    SearchPointInfrastructure
+    SearchPoinTSchool
 )
 from BUDONG.util.geoutil import parse_wkt_point, haversine
 
@@ -24,7 +24,7 @@ def search_point(
     radius = payload.radius_meters
 
     buildings = db.query(TBuilding).all()
-    infra_list = db.query(TInfrastructure).all()
+    infra_list = db.query(TSchool).all()
 
     result_buildings = []
     result_infra = []
@@ -56,7 +56,7 @@ def search_point(
 
         if dist <= radius:
             result_infra.append(
-                SearchPointInfrastructure(
+                SearchPoinTSchool(
                     infra_id=i.infra_id,
                     infra_category=i.infra_category,
                     name=i.name,

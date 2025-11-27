@@ -21,7 +21,7 @@ class SearchPointBuilding(BaseModel):
     longitude: float
 
 
-class SearchPointInfrastructure(BaseModel):
+class SearchPoinTSchool(BaseModel):
     infra_id: int
     infra_category: str
     name: Optional[str]
@@ -33,6 +33,6 @@ class SearchPointInfrastructure(BaseModel):
 # 응답 스키마
 class SearchPointResponse(BaseModel):
     buildings: List[SearchPointBuilding]
-    infrastructure: List[SearchPointInfrastructure]
+    infrastructure: List[SearchPoinTSchool]
     search_radius: int
     result_count: int

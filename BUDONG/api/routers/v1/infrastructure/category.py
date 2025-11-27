@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from BUDONG.api.core.database import get_db
 from BUDONG.api.exception.global_exception_handler import APIError
-from BUDONG.api.models.models import TInfrastructure
+from BUDONG.api.models.models import TSchool
 from BUDONG.api.schemas.schema_infrastructure import (
     InfrastructureCategoryRequest,
     InfrastructureItem,
@@ -47,8 +47,8 @@ def search_infrastructure_by_category(
 
     # 2) DB에서 해당 카테고리 인프라 SELECT
     infra_list = (
-        db.query(TInfrastructure)
-        .filter(TInfrastructure.infra_category == category)
+        db.query(TSchool)
+        .filter(TSchool.infra_category == category)
         .all()
     )
 

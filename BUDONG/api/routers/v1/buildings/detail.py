@@ -3,12 +3,12 @@ from sqlalchemy.orm import Session
 from BUDONG.api.core.database import get_db
 from BUDONG.api.models.models import (
     TBuilding,
-    TRealEstateTransaction,
+    TRealTransactionPrice,
     TBuildingReview,
-    TInfrastructure,
+    TSchool,
     TRegionStats,
-    TEnvironmentStation,
-    TEnvironmentData,
+    TStation,
+    TNoise,
 )
 
 from BUDONG.api.schemas.schema_buildings import (
@@ -68,8 +68,8 @@ def get_building_detail(
     # 2. 거래 정보
     # -------------------------
     tx_list = (
-        db.query(TRealEstateTransaction)
-        .filter(TRealEstateTransaction.building_id == building_id)
+        db.query(TRealTransactionPrice)
+        .filter(TRealTransactionPrice.building_id == building_id)
         .all()
     )
 
@@ -112,7 +112,7 @@ def get_building_detail(
     INFRA_RADIUS_M = 500
     infra_schema = []
 
-    all_infra = db.query(TInfrastructure).all()
+    all_infra = db.query(TSchool).all()
 
     for infra in all_infra:
         i_lat, i_lon = parse_wkt_point(infra.location)
@@ -153,7 +153,7 @@ def get_building_detail(
     # -------------------------
     # 6. 환경 데이터 (가장 가까운 측정소 기반)
     # -------------------------
-    stations = db.query(TEnvironmentStation).all()
+    stations = db.query(TStation).all()
 
     nearest_station = None
     nearest_distance = float("inf")
@@ -170,8 +170,8 @@ def get_building_detail(
         env_schema = []
     else:
         env_list = (
-            db.query(TEnvironmentData)
-            .filter(TEnvironmentData.station_id == nearest_station.station_id)
+            db.query(TNoise)
+            .filter(TNoise.station_id == nearest_station.station_id)
             .all()
         )
 

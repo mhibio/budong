@@ -50,10 +50,10 @@ def insert_dummy_data():
     try:
         from BUDONG.api.core.database import SessionLocal
         from BUDONG.api.models.models import (
-            TUser, TBuilding, TRegion, TInfrastructure,
-            TRealEstateTransaction, TBuildingReview, TUserSavedBuilding,
+            TUser, TBuilding, TRegion, TSchool,
+            TRealTransactionPrice, TBuildingReview, TUserSavedBuilding,
             TSchoolDetail, TParkDetail, TRegionStats,
-            TEnvironmentStation, TEnvironmentData
+            TStation, TNoise
         )
         from sqlalchemy import func
         

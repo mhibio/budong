@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 
 from BUDONG.api.core.database import get_db
 from BUDONG.api.models.models import (
-    TEnvironmentStation,
-    TEnvironmentData,
+    TStation,
+    TNoise,
 )
 
 from BUDONG.api.schemas.schema_environment import (
@@ -29,7 +29,7 @@ def get_environment_data(
 
 
     # 모든 측정소 목록 조회
-    stations = db.query(TEnvironmentStation).all()
+    stations = db.query(TStation).all()
     if not stations:
         raise HTTPException(status_code=404, detail="측정소 데이터가 없습니다.")
 
@@ -50,9 +50,9 @@ def get_environment_data(
 
     # 해당 측정소의 환경 데이터 조회
     env_list = (
-        db.query(TEnvironmentData)
-        .filter(TEnvironmentData.station_id == nearest_station.station_id)
-        .order_by(TEnvironmentData.measurement_time.desc())
+        db.query(TNoise)
+        .filter(TNoise.station_id == nearest_station.station_id)
+        .order_by(TNoise.measurement_time.desc())
         .all()
     )
 

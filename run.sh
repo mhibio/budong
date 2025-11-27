@@ -5,7 +5,7 @@
 echo "BUDONG 프로젝트 시작..."
 
 # Docker Compose로 서비스 시작
-docker compose up -d
+docker compose up -d --build
 
 echo "서비스가 시작되었습니다."
 echo "API 서버: http://localhost:8000"
