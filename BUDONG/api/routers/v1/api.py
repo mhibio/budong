@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from BUDONG.api.routers.v1 import auth ,search, buildings, reviews, user, environment, region
+from BUDONG.api.routers.v1 import auth ,search, buildings, reviews, user, environment, region, infrastructure
 router = APIRouter()
 
 # Auth 라우터 등록
@@ -10,6 +10,7 @@ router.include_router(reviews.router, prefix="/reviews", tags=["reviews"])
 router.include_router(user.router, prefix="/user", tags=["user"])
 router.include_router(environment.router, prefix="/environment", tags=["environment"])
 router.include_router(region.router, prefix="/region", tags=["region"])
+router.include_router(infrastructure.router, prefix="/infrastructure", tags=["infrastructure"])
 
 @router.get("/")
 async def api_root():
