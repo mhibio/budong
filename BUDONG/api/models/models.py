@@ -370,39 +370,3 @@ class JcgBjdTable(Base):
 
     # Relationships
     bjd: Mapped[Optional["BjdTable"]] = relationship(back_populates="jcg_mappings")
-
-
-# =====================================================
-# 사용 예시
-# =====================================================
-
-if __name__ == "__main__":
-    from sqlalchemy import create_engine
-    from sqlalchemy.orm import sessionmaker
-
-    # DB 연결 설정
-    DATABASE_URL = "mysql+pymysql://username:password@3.35.232.62:3306/areapulsedb"
-    
-    engine = create_engine(
-        DATABASE_URL,
-        echo=True,  # SQL 로그 출력
-        pool_pre_ping=True,  # 연결 체크
-    )
-    
-    # 세션 생성
-    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    
-    # 테이블 생성 (선택사항 - 이미 존재하는 DB이므로 불필요)
-    # Base.metadata.create_all(bind=engine)
-    
-    # 사용 예시
-    with SessionLocal() as session:
-        # 사용자 조회
-        user = session.query(User).filter(User.email == "test@example.com").first()
-        
-        # 건물 조회 (관계 포함)
-        building = session.query(Building).filter(Building.building_id == 123).first()
-        if building:
-            print(f"건물명: {building.building_name}")
-            print(f"리뷰 수: {len(building.reviews)}")
-            print(f"거래 내역 수: {len(building.transactions)}")

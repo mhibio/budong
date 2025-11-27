@@ -59,44 +59,8 @@ def check_and_create_tables():
     if not check_database_connection():
         logger.error("데이터베이스에 연결할 수 없습니다.")
         return False
-    
-    try:
-        # 모든 모델의 테이블 목록 가져오기
-        all_tables = list(Base.metadata.tables.keys())
-        
-        if not all_tables:
-            logger.warning("생성할 테이블이 없습니다.")
-            return False
-        
-        # 존재하지 않는 테이블 찾기
-        missing_tables = []
-        existing_tables = []
-        
-        for table_name in all_tables:
-            if table_exists(table_name):
-                existing_tables.append(table_name)
-            else:
-                missing_tables.append(table_name)
-        
-        # 결과 출력
-        if existing_tables:
-            logger.info(f"✅ 기존 테이블 ({len(existing_tables)}개): {', '.join(existing_tables)}")
-        
-        if missing_tables:
-            logger.info(f"📊 생성할 테이블 ({len(missing_tables)}개): {', '.join(missing_tables)}")
-            # 존재하지 않는 테이블만 생성
-            Base.metadata.create_all(bind=engine, tables=[Base.metadata.tables[table] for table in missing_tables])
-            logger.info(f"✅ {len(missing_tables)}개의 테이블이 생성되었습니다.")
-        else:
-            logger.info("✅ 모든 테이블이 이미 존재합니다.")
-        
-        return True
-        
-    except Exception as e:
-        logger.error(f"테이블 생성 중 오류 발생: {e}")
-        import traceback
-        traceback.print_exc()
-        return False
+
+    return True
 
 
 # 데이터베이스 테이블 생성 함수 (개발용 - 모든 테이블 강제 생성)
