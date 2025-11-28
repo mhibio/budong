@@ -2,11 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from BUDONG.api.core.database import get_db
-from BUDONG.api.models.models import (
-    TRegion,
-    TRegionStats
-)
-
 from BUDONG.api.schemas.schema_region import (
     RegionStatsResponse,
     RegionStatsItem,
