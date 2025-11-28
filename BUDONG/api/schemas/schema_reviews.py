@@ -1,12 +1,23 @@
+# BUDONG/api/schemas/schema_reviews.py
+
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 
-# 1) 요청 (Request Body)
+
+# --- 요청(Request) ---
 class ReviewFetchRequest(BaseModel):
     building_id: int
 
-# 2) 개별 리뷰 데이터
+class ReviewCreate(BaseModel):
+    building_id: int
+    rating: int
+    content: str
+
+
+# --- 응답(Response) ---
+
+# 개별 리뷰 (SQLAlchemy → Pydantic 변환 허용)
 class ReviewItem(BaseModel):
     review_id: int
     user_id: int
@@ -16,20 +27,17 @@ class ReviewItem(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True  # ← SQLAlchemy model → Pydantic 변환 허용
+        orm_mode = True
 
 
-# 3) 응답 (Response Body)
+# 리뷰 목록 응답
 class ReviewListResponse(BaseModel):
     reviews: List[ReviewItem]
     total_count: int
-class ReviewCreate(BaseModel):
-    building_id: int
-    rating: int
-    content: str
 
+
+# 리뷰 생성 응답
 class ReviewResponse(BaseModel):
     success: bool
     review_id: int
     message: str
-

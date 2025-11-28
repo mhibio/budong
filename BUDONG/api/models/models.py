@@ -51,11 +51,11 @@ class TUser(Base):
     )
 
     # Relationships
-    reviews: Mapped[list["BuildingReview"]] = relationship(
+    reviews: Mapped[list["TBuildingReview"]] = relationship(
         back_populates="user", 
         cascade="all, delete-orphan"
     )
-    saved_buildings: Mapped[list["UserSavedBuilding"]] = relationship(
+    saved_buildings: Mapped[list["TUserSavedBuilding"]] = relationship(
         back_populates="user", 
         cascade="all, delete-orphan"
     )
@@ -100,8 +100,8 @@ class TBuildingReview(Base):
     )
 
     # Relationships
-    user: Mapped["User"] = relationship(back_populates="reviews")
-    building: Mapped["Building"] = relationship(back_populates="reviews")
+    user: Mapped["TUser"] = relationship(back_populates="reviews")
+    building: Mapped["TBuilding"] = relationship(back_populates="reviews")
 
 
 class TUserSavedBuilding(Base):
@@ -141,8 +141,8 @@ class TUserSavedBuilding(Base):
     )
 
     # Relationships
-    user: Mapped["User"] = relationship(back_populates="saved_buildings")
-    building: Mapped["Building"] = relationship(back_populates="saved_by_users")
+    user: Mapped["TUser"] = relationship(back_populates="saved_buildings")
+    building: Mapped["TBuilding"] = relationship(back_populates="saved_by_users")
 
 
 # =====================================================
@@ -161,8 +161,8 @@ class TBjdTable(Base):
     bjd_eng: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     # Relationships
-    buildings: Mapped[list["Building"]] = relationship(back_populates="bjd")
-    jcg_mappings: Mapped[list["JcgBjdTable"]] = relationship(back_populates="bjd")
+    buildings: Mapped[list["TBuilding"]] = relationship(back_populates="bjd")
+    jcg_mappings: Mapped[list["TJcgBjdTable"]] = relationship(back_populates="bjd")
 
 
 class TBuilding(Base):
@@ -192,16 +192,16 @@ class TBuilding(Base):
     lat: Mapped[float] = mapped_column(Float, nullable=False)
 
     # Relationships
-    bjd: Mapped[Optional["BjdTable"]] = relationship(back_populates="buildings")
-    reviews: Mapped[list["BuildingReview"]] = relationship(
+    bjd: Mapped[Optional["TBjdTable"]] = relationship(back_populates="buildings")
+    reviews: Mapped[list["TBuildingReview"]] = relationship(
         back_populates="building",
         cascade="all, delete-orphan"
     )
-    saved_by_users: Mapped[list["UserSavedBuilding"]] = relationship(
+    saved_by_users: Mapped[list["TUserSavedBuilding"]] = relationship(
         back_populates="building",
         cascade="all, delete-orphan"
     )
-    transactions: Mapped[list["RealTransactionPrice"]] = relationship(
+    transactions: Mapped[list["TRealTransactionPrice"]] = relationship(
         back_populates="building",
         cascade="all, delete-orphan"
     )
@@ -235,7 +235,7 @@ class TRealTransactionPrice(Base):
     floor: Mapped[Optional[float]] = mapped_column(Float, nullable=True)
 
     # Relationships
-    building: Mapped["Building"] = relationship(back_populates="transactions")
+    building: Mapped["TBuilding"] = relationship(back_populates="transactions")
 
 
 # =====================================================
@@ -369,4 +369,4 @@ class TJcgBjdTable(Base):
     )
 
     # Relationships
-    bjd: Mapped[Optional["BjdTable"]] = relationship(back_populates="jcg_mappings")
+    bjd: Mapped[Optional["TBjdTable"]] = relationship(back_populates="jcg_mappings")

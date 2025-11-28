@@ -11,14 +11,14 @@ router = APIRouter()
 
 @router.post("/create", response_model=ReviewResponse)
 def create_review(review: ReviewCreate, db: Session = Depends(get_db)):
-    # 1) 건물 존재 확인
+    # 1) Check if building exists
     building = db.query(TBuilding).filter(TBuilding.building_id == review.building_id).first()
     if not building:
         raise HTTPException(status_code=404, detail="건물을 찾을 수 없습니다.")
 
-    # 2) 리뷰 생성
+    # 2) Temporary user_id (No login yet)
     new_review = TBuildingReview(
-        user_id=1,  # ← 실제 로그인 기능 도입 후 변경 예정
+        user_id=1,  # 👈 Temporary solution (Fix later)
         building_id=review.building_id,
         rating=review.rating,
         content=review.content
