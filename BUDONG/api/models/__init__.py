@@ -6,10 +6,6 @@ from .models import (
     TBuilding,
     TRealTransactionPrice,
     TSchool,
-    TSchoolDetail,
-    TParkDetail,
-    TRegion,
-    TRegionStats,
     TStation,
     TNoise,
 )
