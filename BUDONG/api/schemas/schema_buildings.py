@@ -54,7 +54,7 @@ class BuildingReview(BaseModel):
 # -------------------------
 class NearbyInfrastructure(BaseModel):
     infra_id: str  # 공원 PK(문자열)도 포함해야 해서 str 처리
-    infra_category: str  # "school", "park", "station", "police", "crime_cctv"
+    infra_category: str  # "school", "park", "subway_station", "public_office", "cctv"
     name: Optional[str]
     address: Optional[str]
     latitude: Optional[float]

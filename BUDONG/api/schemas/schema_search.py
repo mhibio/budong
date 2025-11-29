@@ -22,7 +22,7 @@ class SearchPointBuilding(BaseModel):
 
 
 class SearchPointInfra(BaseModel):
-    type: str  # "school", "station", "park"
+    type: str  # "school", "subway_station", "park"
     name: Optional[str]
     address: Optional[str]
     latitude: float

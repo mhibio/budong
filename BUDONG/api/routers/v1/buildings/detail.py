@@ -163,7 +163,7 @@ def get_building_detail(
             infra_schema.append(
                 NearbyInfrastructure(
                     infra_id=str(st.station_id),
-                    infra_category="station",
+                    infra_category="subway_station",
                     name=st.station_name,
                     address=None,
                     latitude=st.lat,
@@ -190,7 +190,7 @@ def get_building_detail(
         infra_schema.append(
             NearbyInfrastructure(
                 infra_id=police.polic_station_name,
-                infra_category="police",
+                infra_category="public_office",
                 name=police.polic_station_name,
                 address=police.address,
                 latitude=None,
@@ -223,7 +223,7 @@ def get_building_detail(
                 infra_schema.append(
                     NearbyInfrastructure(
                         infra_id=crime.jcg_name,
-                        infra_category="crime_cctv",
+                        infra_category="cctv",
                         name=crime.jcg_name,
                         address=None,
                         latitude=None,

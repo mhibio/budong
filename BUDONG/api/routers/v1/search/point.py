@@ -85,7 +85,7 @@ def search_point(
         if dist <= radius:
             infra_results.append(
                 SearchPointInfra(
-                    type="station",
+                    type="subway_station",
                     name=st.station_name,
                     address=None,
                     latitude=st.lat,
