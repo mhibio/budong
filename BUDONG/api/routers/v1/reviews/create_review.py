@@ -11,14 +11,14 @@ router = APIRouter()
 def create_review(
     review: ReviewCreate,
     db: Session = Depends(get_db),
-    current_user = Depends(get_current_active_user)   # <-- 🔥 ADD THIS
+    current_user = Depends(get_current_active_user)   
 ):
     building = db.query(TBuilding).filter(TBuilding.building_id == review.building_id).first()
     if not building:
         raise HTTPException(status_code=404, detail="Building not found")
 
     new_review = TBuildingReview(
-        user_id=current_user.user_id,   # <-- 🔥 USE REAL USER
+        user_id=current_user.user_id,   
         building_id=review.building_id,
         rating=review.rating,
         content=review.content
