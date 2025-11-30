@@ -15,6 +15,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init:/docker-entrypoint-initdb.d
+      - ./my.cnf:/etc/mysql/my.cnf:ro
     networks:
       - budong_network
     healthcheck:
@@ -30,13 +31,6 @@ services:
     restart: always
     ports:
       - "8000:8000"
-    environment:
-      - DATABASE_URL=mysql+pymysql://budonguser:budongpassword@db:3306/budong
-      - MYSQL_HOST=db
-      - MYSQL_PORT=3306
-      - MYSQL_USER=budonguser
-      - MYSQL_PASSWORD=budongpassword
-      - MYSQL_DATABASE=budong
     depends_on:
       db:
         condition: service_healthy
