@@ -62,14 +62,14 @@ async def refresh_token(
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         #data={"sub": user.user_id, "email": user.email, "role": user.role},
-        data={"sub": user.user_id, "email": user.email},
+        data={"sub": str(user.user_id), "email": user.email},
         expires_delta=access_token_expires
     )
     
     # 새로운 리프레시 토큰 생성
     refresh_token_expires = timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
     refresh_token = create_refresh_token(
-        data={"sub": user.user_id, "email": user.email},
+        data={"sub": str(user.user_id), "email": user.email},
         expires_delta=refresh_token_expires
     )
     
