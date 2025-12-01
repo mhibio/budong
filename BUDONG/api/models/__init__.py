@@ -13,7 +13,8 @@ from .models import (
     TSchool,
     TPark,
     TNoise,
-    TJcgBjdTable
+    TJcgBjdTable,
+    TCCTVInfo
 )
 
 
