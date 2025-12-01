@@ -259,17 +259,17 @@ def get_building_detail(
     #         .first()
     #     )
 
-    # region_stats.append(
-    #     RegionStat(
-    #         region_name=region_name,
-    #         crime_num=crime_stat["crime_num"],
-    #         cctv_num=crime_stat["cctv_num"],
-    #         dangerous_rating=crime_stat["dangerous_rating"],
-    #         cctv_security_rating=crime_stat["cctv_security_rating"],
-    #         passenger_num=transport.passenger_num if transport else None,
-    #         complexity_rating=transport.complexity_rating if transport else None,
-    #     )
-    # )
+    region_stats.append(
+        RegionStat(
+            region_name=region_name,
+            crime_num=crime_stat["crime_num"],
+            cctv_num=crime_stat["cctv_num"],
+            dangerous_rating=crime_stat["dangerous_rating"],
+            cctv_security_rating=crime_stat["cctv_security_rating"],
+            passenger_num=transport.passenger_num if transport else None,
+            complexity_rating=transport.complexity_rating if transport else None,
+        )
+    )
 
     # ------------------------------------------------------------------
     # 8. 환경 데이터 (가장 가까운 noise 지점 1개)
