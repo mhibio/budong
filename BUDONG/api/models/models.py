@@ -274,9 +274,9 @@ class TPoliceStationInfo(Base):
 class TCCTVInfo(Base):
     __tablename__ = 't_cctv_info'
 
-    id = Column(Integer, primary_key=True, autoincrement=True, comment='고유 ID')
+    id = mapped_column(Integer, primary_key=True, autoincrement=True, comment='고유 ID')
     
-    cnt = Column(Integer, nullable=False, default=0, comment='개수/수량')
+    cnt = mapped_column(Integer, nullable=False, default=0, comment='개수/수량')
     
     lat: Mapped[Optional[float]] = mapped_column(Float, nullable=False)
     lon: Mapped[Optional[float]] = mapped_column(Float, nullable=False)
