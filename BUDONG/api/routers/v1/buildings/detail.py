@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from BUDONG.api.core.database import get_db
 from BUDONG.api.models import (
@@ -107,6 +108,7 @@ def get_building_detail(
         )
         for r in review_list
     ]
+
 
     # ------------------------------------------------------------------
     # 4. 주변 인프라 (학교, 공원, 지하철)
@@ -243,6 +245,24 @@ def get_building_detail(
     # ------------------------------------------------------------------
     # 7. 지역 통계 (범죄지표 + 복잡도)
     # ------------------------------------------------------------------
+    
+    # cctv
+    radius_m = 1000
+    distance_expression = func.ST_Distance_Sphere(
+        func.Point(TCCTVInfo.lon, TCCTVInfo.lat),  
+        func.Point(b_lon, b_lat)
+    )
+
+    # 3. 쿼리 작성: 거리가 radius_m 이하인 항목의 cnt 합계를 구합니다.
+    total_count = db.query(
+        func.sum(TCCTVInfo.cnt)
+    ).filter(
+        distance_expression <= radius_m
+    ).scalar() 
+
+    total_cnt = int(total_count) if total_count is not None else 0
+    print(total_cnt)
+
     region_stats = []
 
     # 범죄지표
@@ -251,6 +271,7 @@ def get_building_detail(
         "cctv_num": crime.cctv_num if crime else None,
         "dangerous_rating": crime.dangerous_rating if crime else None,
         "cctv_security_rating": crime.CCTV_security_rating if crime else None,
+        "real_cctv_cnt" : total_cnt
     }
 
 
@@ -261,8 +282,10 @@ def get_building_detail(
             cctv_num=crime_stat["cctv_num"],
             dangerous_rating=crime_stat["dangerous_rating"],
             cctv_security_rating=crime_stat["cctv_security_rating"],
+            real_cctv_cnt=crime_stat['real_cctv_cnt']
         )
     )
+
 
     # ------------------------------------------------------------------
     # 8. 환경 데이터 (가장 가까운 noise 지점 1개)
