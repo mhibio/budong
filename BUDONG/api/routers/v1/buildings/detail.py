@@ -317,7 +317,7 @@ def get_building_detail(
 
     cctv_data = [
         zzzzzzzzzz(lon=cctv.lon, lat=cctv.lat)
-        for cctv in cctv_results
+        for cctv in cctv_list
     ]
     # ------------------------------------------------------------------
     # 최종 반환
