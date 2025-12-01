@@ -162,7 +162,7 @@ def get_building_detail(
         if dist <= INFRA_RADIUS_M:
             st_complexity = db.query(TPublicTransportByAdminDong).filter(TPublicTransportByAdminDong.station_id == st.station_id).first()
             ext = None
-            if st_complexity not None:
+            if st_complexity != None:
                 ext = {
                     "passenger_num":st_complexity.passenger_num * 80, # 80으로 나눠진 평균값이므로 실 인원수는 80
                     "complexity_rating":st_complexity.complexity_rating
