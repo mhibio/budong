@@ -242,7 +242,7 @@ def get_building_detail(
     environment_schema = []
 
     distance_expression = func.ST_Distance_Sphere(
-        func.Point(TNoise.lon, TPTNoiseark.lat),  
+        func.Point(TNoise.lon, TNoise.lat),  
         func.Point(b_lon, b_lat)
     )
 
