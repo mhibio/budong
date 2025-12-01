@@ -124,7 +124,7 @@ def get_building_detail(
         func.Point(b_lon, b_lat)
     )
 
-    school_list = db.query(TSchool).filter(distance_expression <= radius).all()
+    school_list = db.query(TSchool).filter(distance_expression <= INFRA_RADIUS_M).all()
     school_result = [
         NearbyInfrastructure(
             infra_id=str(s.school_id),
@@ -143,7 +143,7 @@ def get_building_detail(
         func.Point(b_lon, b_lat)
     )
 
-    station_list = db.query(TStation).filter(distance_expression <= radius).all()
+    station_list = db.query(TStation).filter(distance_expression <= INFRA_RADIUS_M).all()
     
     for st in statoin_list:
         st_complexity = db.query(TPublicTransportByAdminDong).filter(TPublicTransportByAdminDong.station_id == st.station_id).first()
@@ -173,7 +173,7 @@ def get_building_detail(
         func.Point(b_lon, b_lat)
     )
 
-    park_list = db.query(TPark).filter(distance_expression <= radius).all()
+    park_list = db.query(TPark).filter(distance_expression <= INFRA_RADIUS_M).all()
     park_result = [
         NearbyInfrastructure(
             infra_id=p.park_name,
@@ -246,7 +246,7 @@ def get_building_detail(
         func.Point(b_lon, b_lat)
     )
 
-    near_noise = db.query(TNoise).filter(distance_expression <= radius).order_by(distance_expression.asc()).limit(1).first()
+    near_noise = db.query(TNoise).filter(distance_expression <= INFRA_RADIUS_M).order_by(distance_expression.asc()).limit(1).first()
     if near_noise:
         environment_schema.append(
             EnvironmentData(
