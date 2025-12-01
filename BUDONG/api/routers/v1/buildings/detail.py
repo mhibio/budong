@@ -219,23 +219,23 @@ def get_building_detail(
         .first()
     )
 
-    if crime:
-        infra_schema.append(
-            NearbyInfrastructure(
-                infra_id=crime.jcg_name,
-                infra_category="cctv",
-                name=crime.jcg_name,
-                address=None,
-                latitude=None,
-                longitude=None,
-                extra_data={
-                    "crime_num": crime.crime_num,
-                    "cctv_num": crime.cctv_num,
-                    "dangerous_rating": crime.dangerous_rating,
-                    "cctv_security_rating": crime.CCTV_security_rating,
-                }
-            )
-        )
+    # if crime:
+    #     infra_schema.append(
+    #         NearbyInfrastructure(
+    #             infra_id=crime.jcg_name,
+    #             infra_category="cctv",
+    #             name=crime.jcg_name,
+    #             address=None,
+    #             latitude=None,
+    #             longitude=None,
+    #             extra_data={
+    #                 "crime_num": crime.crime_num,
+    #                 "cctv_num": crime.cctv_num,
+    #                 "dangerous_rating": crime.dangerous_rating,
+    #                 "cctv_security_rating": crime.CCTV_security_rating,
+    #             }
+    #         )
+    #     )
 
     # ------------------------------------------------------------------
     # 7. 지역 통계 (범죄지표 + 복잡도)
