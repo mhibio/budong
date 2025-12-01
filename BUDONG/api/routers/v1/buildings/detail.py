@@ -258,8 +258,6 @@ def get_building_detail(
             cctv_num=crime_stat["cctv_num"],
             dangerous_rating=crime_stat["dangerous_rating"],
             cctv_security_rating=crime_stat["cctv_security_rating"],
-            passenger_num=transport.passenger_num if transport else None,
-            complexity_rating=transport.complexity_rating if transport else None,
         )
     )
 
