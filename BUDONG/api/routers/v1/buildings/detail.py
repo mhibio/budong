@@ -248,6 +248,7 @@ def get_building_detail(
     # ------------------------------------------------------------------
     
     # cctv
+    print(b_lon, b_lat)
     radius_m = 1000
     distance_expression = func.ST_Distance_Sphere(
         func.Point(TCCTVInfo.lon, TCCTVInfo.lat),  
