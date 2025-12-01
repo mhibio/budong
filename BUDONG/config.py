@@ -4,36 +4,26 @@ from typing import Optional
 
 class Settings(BaseSettings):
     # Database
-    MYSQL_HOST: str = "3.35.232.62"
-    MYSQL_PORT: int = 3306
-    MYSQL_USER: str = "root"
-    MYSQL_PASSWORD: str = "qwjdwioqjdwqioqwd"
-    MYSQL_DATABASE: str = "areapulsedb"
-    
-    # Database URL (for SQLAlchemy)
-    DATABASE_URL: Optional[str] = None
+    MYSQL_HOST: str = os.getenv("MYSQL_HOST")
+    MYSQL_PORT: int = os.getenv("MYSQL_PORT")
+    MYSQL_USER: str = os.getenv("MYSQL_USER")
+    MYSQL_PASSWORD: str = os.getenv("MYSQL_PASSWORD")
+    MYSQL_DATABASE: str = os.getenv("MYSQL_DATABASE")
     
     # API
     API_V1_PREFIX: str = "/api/v1"
     
     # Security
-    SECRET_KEY: str = "your-secret-key-change-in-production"
+    SECRET_KEY: str = os.getenv("SECRET_KEY")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
-    
-    # Redis (optional)
-    REDIS_HOST: str = "localhost"
-    REDIS_PORT: int = 6379
-    REDIS_DB: int = 0
     
     class Config:
         env_file = ".env"
         case_sensitive = True
 
     def get_database_url(self) -> str:
-        if self.DATABASE_URL:
-            return self.DATABASE_URL
         return f"mysql+pymysql://{self.MYSQL_USER}:{self.MYSQL_PASSWORD}@{self.MYSQL_HOST}:{self.MYSQL_PORT}/{self.MYSQL_DATABASE}"
 
 

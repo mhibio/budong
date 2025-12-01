@@ -7,10 +7,11 @@ from BUDONG.config import settings
 from BUDONG.api.core.database import check_and_create_tables
 from BUDONG.api.exception.global_exception_handler import register_exception_handlers
 import logging
+from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
+load_dotenv()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
