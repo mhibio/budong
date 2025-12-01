@@ -5,11 +5,6 @@ services:
     image: mysql:8.0
     container_name: budong_mysql
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: budong
-      MYSQL_USER: budonguser
-      MYSQL_PASSWORD: budongpassword
     ports:
       - "3306:3306"
     volumes:
@@ -19,7 +14,7 @@ services:
     networks:
       - budong_network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root"]
       interval: 5s
       timeout: 3s
       retries: 10
