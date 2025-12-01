@@ -271,31 +271,16 @@ class TPoliceStationInfo(Base):
 # =====================================================
 # 5. 교통 및 시설 정보
 # =====================================================
-class CCTVInfo(Base):
+class TCCTVInfo(Base):
     __tablename__ = 't_cctv_info'
-    __table_args__ = {'comment': 'CCTV 정보 테이블'}
 
-    # 컬럼 정의
     id = Column(Integer, primary_key=True, autoincrement=True, comment='고유 ID')
     
     cnt = Column(Integer, nullable=False, default=0, comment='개수/수량')
     
-    # MySQL의 DECIMAL 타입 매핑 (정밀도 지정)
-    # 위도: -90 ~ 90 (정수부 2자리 + 소수부 8자리 = 10)
-    lat = Column(DECIMAL(10, 8), nullable=False, comment='위도')
-    
-    # 경도: -180 ~ 180 (정수부 3자리 + 소수부 8자리 = 11)
-    lon = Column(DECIMAL(11, 8), nullable=False, comment='경도')
-    
-    created_at = Column(
-        TIMESTAMP, 
-        server_default=text('CURRENT_TIMESTAMP'), 
-        comment='생성일시'
-    )
+    lat: Mapped[Optional[float]] = mapped_column(Float, nullable=False)
+    lon: Mapped[Optional[float]] = mapped_column(Float, nullable=False)
 
-    def __repr__(self):
-        return f"<CCTVInfo(id={self.id}, cnt={self.cnt}, lat={self.lat}, lon={self.lon})>"
-        
 class TStation(Base):
     __tablename__ = "t_station"
 
