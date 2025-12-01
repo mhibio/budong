@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from sqlalchemy import func
+
 from BUDONG.api.core.database import get_db
 from BUDONG.api.models.models import (
     TBuilding, TSchool, TStation, TPark
