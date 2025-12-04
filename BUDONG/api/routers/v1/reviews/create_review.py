@@ -29,5 +29,6 @@ def create_review(
 
     return ReviewResponse(
         success=True,
-        review_id=new_review.review_id
-        message="Review created successfully")
+        review_id=new_review.review_idm,
+        message="Review created successfully"
+        )
